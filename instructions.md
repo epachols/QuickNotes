@@ -107,6 +107,12 @@ made folders in a data folder
         console.log("wrong!", e)
      }
    }
+   readWaiting(){
+
+   }
+   writeWaiting(waitingArr){
+
+   }
  }
 
  const testDB = new DB();
@@ -135,6 +141,3 @@ const availTables = await DB.readtables(); (had to make the route above async)
 **note** the making of the callback get async so we can await the read of JSON objects.
 
 writeTables([newTable, ...availableTables]) WILL WRITE THE NEW ONE AND THE CURRENT ARRAY INTO A NEW THING
-
-what is a singleton pattern
-A CLASS IN OOP instanced never more than once. WOO!
