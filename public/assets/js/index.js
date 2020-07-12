@@ -3,7 +3,6 @@ const $noteText = $(".note-textarea");
 const $saveNoteBtn = $(".save-note");
 const $newNoteBtn = $(".new-note");
 const $noteList = $(".list-container .list-group");
-const shortid = require('shortid');
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
@@ -55,8 +54,6 @@ const handleNoteSave = function () {
   const newNote = {
     title: $noteTitle.val(),
     text: $noteText.val(),
-    //added the below line with shortid NPM mod to create a unique ID per note.
-    id: shortid.generate(),
   };
 
   saveNote(newNote).then(() => {
@@ -126,7 +123,6 @@ const renderNoteList = (notes) => {
     return $li;
   };
 
-  //===================\/===========ASK ABOUT THIS -- why  notes 
   if (notes.length === 0) {
     noteListItems.push(create$li("No saved Notes", false));
   }
