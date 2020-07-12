@@ -1,31 +1,28 @@
 // Dependencies
 // =============================================================
-var express = require("express");
-var path = require("path");
-var fs = require("fs");
-var util = require("util");
-// using that neat nanoid module, I think
+const express = require("express");
+const path = require("path");
+const fs = require("fs");
+const util = require("util");
+// using that neat nanoid module, importing the main method of the module.
 const { nanoid } = require("nanoid");
-
-readfileAsync = util.promisify(fs.readFile);
-writeFileAsync = util.promisify(fs.writeFile);
-
-// empty array to push data into and out of
-// let notesArr = [];
+//redoing Read and Write to Async.
+const readfileAsync = util.promisify(fs.readFile);
+const writeFileAsync = util.promisify(fs.writeFile);
+//path to the database json file
 const jsonDb = (path.resolve(__dirname, "db/db.json"));
+// TODO:the below line will be useful when modularizing, for now it is redundant. however dbFunction is written.
+// const dbFunction = require("./db/db.js");
 
 // Sets up the Express App
 // =============================================================
 var app = express();
 var PORT = process.env.PORT || 3000;
-
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
-// ==========================REUSABLE CODE SNIP ABOVE=============
-
-//make get handlers here
+// ==========================REUSABLE CODE SNIP ABOVE============
 
 //for home page
 app.get("/", function(req, res) {
@@ -37,14 +34,14 @@ app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "/public/notes.html"));
     });
 
-//getnotes
+//retrieving the note data from db.json
 app.get("/api/notes", function(req,res){
     readfileAsync(jsonDb,"utf8").then(function(data){
         return res.json(JSON.parse(data)) 
     })
 });
 
-// to post **WIP**
+// to post
 app.post('/api/notes', async function(req,res) {
     // saying what comes in from the user is what I care about
     const newNote = req.body;
@@ -52,10 +49,8 @@ app.post('/api/notes', async function(req,res) {
     newNote.id= nanoid();
     // saying everything that follows depends on waiting the results of the readfile assigned below.
     const retrievedNotes = await readNotes();
-    //double checking below
-    console.log(retrievedNotes);
-    //using the async write function (as last step, who cares unless someone tries to do it again before this is done?)
-    const freshwritten = await writeNotes([...retrievedNotes, newNote]);
+    //using the async write function 
+    const freshlyWrittenNotes = await writeNotes([...retrievedNotes, newNote]);
     res.json(newNote);
 })
     
@@ -81,14 +76,14 @@ app.listen(PORT, function() {
 });
 
 async function readNotes(){
-        try {
-        const notesRaw = await readfileAsync(jsonDb, "utf8")
-    //    console.log("notesRaw!", notesRaw);
-        return notesRaw ? JSON.parse(notesRaw) : [];
-        } catch (e){
-        console.log("I have failed you;", e)
-        }
+    try {
+    const notesRaw = await readfileAsync(jsonDb, "utf8")
+//    console.log("notesRaw!", notesRaw);
+    return notesRaw ? JSON.parse(notesRaw) : [];
+    } catch (e){
+    console.log("I have failed you;", e)
     }
+}
 
 async function writeNotes(noteArr){
     try{
@@ -97,3 +92,11 @@ async function writeNotes(noteArr){
     console.log("I have failed you;", e)
     }
 }
+
+
+// next up:
+// TODO: separation of concerns - 
+// TODO: read/write functions into object class for export and Reference , converting local references to call db.writefile etc as we go
+// TODO:put that in a controllers folder along with the routes.js I will pull the page routing and pulling into.
+// TODO: clean up the excess code in server.js, all the references i won't need anymore, by their lack of use coloration after commenting out the redundancies and maintaining function.
+// TODO:
