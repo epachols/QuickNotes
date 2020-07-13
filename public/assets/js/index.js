@@ -111,12 +111,12 @@ const renderNoteList = (notes) => {
   // unless withDeleteButton argument is provided as false
   const create$li = (text, withDeleteButton = true) => {
     const $li = $("<li class='list-group-item'>");
-    const $span = $("<span>").text(text);
+    const $span = $("<span style='font-family: 'Permanent Marker', cursive;'>").text(text);
     $li.append($span);
 
     if (withDeleteButton) {
       const $delBtn = $(
-        "<i class='fas fa-trash-alt float-right text-danger delete-note'>"
+        "<i class='fas fa-dumpster-fire float-right delete-note' style='color:#78361c'>"
       );
       $li.append($delBtn);
     }
