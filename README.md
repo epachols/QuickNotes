@@ -26,7 +26,7 @@
 
   Upon visiting the functionally hosted app, a user will be able to create and delete notes individually with persistent data maintained server-side. 
 
-  - ![Preview](/public/assets/preview.png)
+  ![Preview](/public/assets/preview.png)
   
   
   ## Contributing:
