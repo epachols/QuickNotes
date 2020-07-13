@@ -24,5 +24,5 @@ const writeFileAsync = util.promisify(fs.writeFile);
     }
  }
 
-
+//this is an example of a singleton pattern
  module.exports = new dbFunction();
