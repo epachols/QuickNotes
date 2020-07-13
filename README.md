@@ -26,7 +26,7 @@
 
   Upon visiting the functionally hosted app, a user will be able to create and delete notes individually with persistent data maintained server-side. 
 
-  - ![Preview](/assets/preview.png)
+  - ![Preview](/public/assets/preview.png)
   
   
   ## Contributing:
@@ -53,7 +53,7 @@
   
  None
   
-  ## License information:
+  ## License:
   
  
   CC0 ![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png) [License Document](https://creativecommons.org/publicdomain/zero/1.0/)
