@@ -15,7 +15,8 @@
  This is a brief notetaking app and server.  This server-side persistent data app was made with express node/js, endpoints tested with Postman, and hosted with Github and Heroku.
   
   ## Installation
- Using this app merely requires visiting the following link:**[Quicknotes]('''''')**
+ Using this app merely requires visiting the following link:
+  - **[Code Crow's QuickNotes](https://etpquicknotes.herokuapp.com/)**
 
  Development of this app requires both the **[Express](https://expressjs.com/)** and the **[Nanoid](https://www.npmjs.com/package/nanoid)** npm modules, please be sure to install both of them in the root folder before attempting to modify this app successfully. Installation for both modules can be done with the the command line **npm install** followed by the module name as designated in the docs.
   
