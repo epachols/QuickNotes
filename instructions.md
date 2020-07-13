@@ -78,3 +78,66 @@ You are required to submit the following:
 
 - - -
 © 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+
+
+taking notes down here for denis' persistent data for HW
+made folders in a data folder 
+ - db.js
+ const util = require("util")
+ const tableData="./data/tables.json"
+ const waitingData="./data/waiting.json"
+
+ readfileAsync = util.promisify(fs.readFile);
+ writeFileAsync = util.promisify(fs.writeFile);
+
+ class DB{
+   async readTables(){
+     try {
+       const tablesRaw = await readfileAsync(tableData, "utf8")
+       console.log("tablesRaw!", tablesRaw);
+       return tablesRaw ? JSON.parse(tablesRaw) : [];
+     } catch (e){
+       console.log("wrong!", e)
+     }
+   }
+   async writeTables(tablesArr){
+     try{
+      await writeFileAsync(tableData, JSON.stringify(tablesArr), "utf8")
+     } catch(e) {
+        console.log("wrong!", e)
+     }
+   }
+   readWaiting(){
+
+   }
+   writeWaiting(waitingArr){
+
+   }
+ }
+
+ const testDB = new DB();
+ testDB.writeTables({
+   name: "denis",
+   email: "ohyeah",
+   phone: "yup"
+ })
+
+ console.log(testDB.readTables())
+
+ module.exports = new DB();
+ - tables.json
+ - waiting.json
+ 
+ **FIRST** we neede FS, and util with async-await etc
+ reading the data returns undefined or a json string, 
+ so make sure that if there's nothing, don't bother.
+
+**then** went into the api.js file and add a constant for requiring the DB
+then in the routes he put 
+const availTables = await DB.readtables(); (had to make the route above async)
+ 
+ the DB declared as DB is a new instance (via export) of the class, NOT the class itself.
+
+**note** the making of the callback get async so we can await the read of JSON objects.
+
+writeTables([newTable, ...availableTables]) WILL WRITE THE NEW ONE AND THE CURRENT ARRAY INTO A NEW THING
